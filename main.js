@@ -36,14 +36,19 @@
                 setTimeout(() => newDiv.remove(),3000);
             }else {
                 const li = document.createElement('li');
-                li.appendChild(document.createTextNode(`Thank You!!! ${nameInput.value} You will Get the Call Soon...`
-                ));
-                localStorage.setItem(nameInput.value, emailInput.value);
+                li.appendChild(document.createTextNode(`Thank You!!! ${nameInput.value} for booking Your Appointment...`));
+                let myObj = {
+                    name : nameInput.value,
+                    email : emailInput.value
+                };
+                let myObj_stringify = JSON.stringify(myObj);
+                localStorage.setItem(nameInput.value, myObj_stringify);
                 userList.appendChild(li);
                 nameInput.value = '';
                 emailInput.value = '';
                 setTimeout(() => li.remove(),4000);
             }
         }
+        
 
 
