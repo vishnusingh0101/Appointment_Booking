@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>formPractice</title>
+    <style>
+        input {
+            width: 20%;
+            margin-right: 5px;
+            border-radius: 5px;
+            height: 25px;
+        }
+        .col {
+            flex-direction: column;
+            display: contents;
+        }
+        label {
+            font-size: 25px;
+        }
+        button {
+            font-size: 23px;
+            border-radius: 4px;
+        }
+        .delete {
+            width: 60px;
+        }
+    </style>
+</head>
+<body>
+    <form onsubmit="addToLocalStorage(event)">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <label for="mail">Email:</label>
+                    <input type="mail" name="email">
+                </div>
+                <div class="col">
+                    <label for="name">Name:</label>
+                    <input type="text" name="name">
+                </div>
+                <div class="col">
+                    <label for="phone">Phone:</label>
+                    <input type="number" name="phone">
+                </div>
+                <div class="col">
+                    <button>Submit</button>
+                </div>
+            </div>
+        </div>
+        <ul id="user"></ul>
+    </form>
+    <script>
+        function addToLocalStorage(event) {
+            event.preventDefault();
+            const mail = event.target.email.value;
+            const name = event.target.name.value;
+            const phone = event.target.phone.value;
+
+            let obj = {
+                name,
+                mail,
+                phone
+            }
+            
+            localStorage.setItem(obj.mail, JSON.stringify(obj));
+            setValueInUi(obj);
+        }
+        function setValueInUi(obj) {
+            var parentElement = document.getElementById('user');
+            var btn = document.createElement('input');
+            btn.className = 'delete';
+            btn.type = 'button';
+            btn.value = 'Delete';
+            btn.onclick = () => {
+                localStorage.removeItem(obj.mail);
+                parentElement.removeChild(childElement);
+            };
+            var childElement = document.createElement('li');
+            childElement.textContent = 'Name: '+obj.name+' Email: '+obj.mail+' PhoneNumber: '+obj.phone;
+            childElement.appendChild(btn);
+            parentElement.appendChild(childElement);
+        }
+        
+    </script>
+</body>
+</html>
