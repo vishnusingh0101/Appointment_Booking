@@ -26,6 +26,9 @@
         .delete {
             width: 60px;
         }
+        .edit {
+            width: 60px;
+        }
     </style>
 </head>
 <body>
@@ -34,15 +37,15 @@
             <div class="row">
                 <div class="col">
                     <label for="mail">Email:</label>
-                    <input type="mail" name="email">
+                    <input type="mail" name="email" id="mail" required>
                 </div>
                 <div class="col">
                     <label for="name">Name:</label>
-                    <input type="text" name="name">
+                    <input type="text" name="name" id="name" required> 
                 </div>
                 <div class="col">
                     <label for="phone">Phone:</label>
-                    <input type="number" name="phone">
+                    <input type="number" name="phone" id="phone">
                 </div>
                 <div class="col">
                     <button>Submit</button>
@@ -70,19 +73,40 @@
         function setValueInUi(obj) {
             var parentElement = document.getElementById('user');
             var btn = document.createElement('input');
-            btn.className = 'delete';
+            btn.className = 'btn delete';
             btn.type = 'button';
             btn.value = 'Delete';
+            var edit = document.createElement('input');
+            edit.className = 'btn edit';
+            edit.type = 'button';
+            edit.value = 'edit';
             btn.onclick = () => {
                 localStorage.removeItem(obj.mail);
                 parentElement.removeChild(childElement);
             };
+
+            
+            let email = document.getElementById('mail');
+            let name = document.getElementById('name');
+            let phone = document.getElementById('phone');
+            
+            edit.onclick = () => {
+                email.value = obj.mail;
+                name.value = obj.name;
+                phone.value = obj.phone;
+                localStorage.removeItem(obj.mail);
+                parentElement.removeChild(childElement);
+            }
             var childElement = document.createElement('li');
             childElement.textContent = 'Name: '+obj.name+' Email: '+obj.mail+' PhoneNumber: '+obj.phone;
             childElement.appendChild(btn);
+            childElement.appendChild(edit);
             parentElement.appendChild(childElement);
+            email.value = '';
+            name.value = '';
+            phone.value = '';
         }
-        
+
     </script>
 </body>
 </html>
