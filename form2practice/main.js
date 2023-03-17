@@ -1,5 +1,7 @@
+var crud = 'https://crudcrud.com/api/40fad303c79d4e6f92aac6e36b219005' + '/appointmentData/';
+
 window.onload = () => {
-    axios.get('https://crudcrud.com/api/9788f5926f56415d94b62840fff8c5ee/appointmentData')
+    axios.get(crud)
     .then( (customer) => {
         const appointdetail = customer.data;
         for(const appointment of appointdetail) {
@@ -22,7 +24,7 @@ function addToLocalStorage(event) {
         mail,
         phone
     }
-    axios.post(`https://crudcrud.com/api/9788f5926f56415d94b62840fff8c5ee/appointmentData`,obj)
+    axios.post(crud, obj)
     .then( (customer) => {
         console.log(customer);
         const appointment = customer.data;
@@ -46,7 +48,7 @@ function setValueInUi(obj, id) {
     edit.value = 'edit';
     btn.onclick = () => {
         axios
-        .delete(`https://crudcrud.com/api/9788f5926f56415d94b62840fff8c5ee/appointmentData/`+ id)
+        .delete(crud + id)
         .then( (res) => {
             console.log(res);
             parentElement.removeChild(childElement);
@@ -67,7 +69,7 @@ function setValueInUi(obj, id) {
         name.value = obj.name;
         phone.value = obj.phone;
         axios
-        .put(`https://crudcrud.com/api/9788f5926f56415d94b62840fff8c5ee/appointmentData/`+ id)
+        .delete(crud + id)
         .then( (res) => {
             console.log(res);
             parentElement.removeChild(childElement);
