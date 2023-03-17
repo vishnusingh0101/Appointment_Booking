@@ -54,59 +54,7 @@
         </div>
         <ul id="user"></ul>
     </form>
-    <script>
-        function addToLocalStorage(event) {
-            event.preventDefault();
-            const mail = event.target.email.value;
-            const name = event.target.name.value;
-            const phone = event.target.phone.value;
-
-            let obj = {
-                name,
-                mail,
-                phone
-            }
-            
-            localStorage.setItem(obj.mail, JSON.stringify(obj));
-            setValueInUi(obj);
-        }
-        function setValueInUi(obj) {
-            var parentElement = document.getElementById('user');
-            var btn = document.createElement('input');
-            btn.className = 'btn delete';
-            btn.type = 'button';
-            btn.value = 'Delete';
-            var edit = document.createElement('input');
-            edit.className = 'btn edit';
-            edit.type = 'button';
-            edit.value = 'edit';
-            btn.onclick = () => {
-                localStorage.removeItem(obj.mail);
-                parentElement.removeChild(childElement);
-            };
-
-            
-            let email = document.getElementById('mail');
-            let name = document.getElementById('name');
-            let phone = document.getElementById('phone');
-            
-            edit.onclick = () => {
-                email.value = obj.mail;
-                name.value = obj.name;
-                phone.value = obj.phone;
-                localStorage.removeItem(obj.mail);
-                parentElement.removeChild(childElement);
-            }
-            var childElement = document.createElement('li');
-            childElement.textContent = 'Name: '+obj.name+' Email: '+obj.mail+' PhoneNumber: '+obj.phone;
-            childElement.appendChild(btn);
-            childElement.appendChild(edit);
-            parentElement.appendChild(childElement);
-            email.value = '';
-            name.value = '';
-            phone.value = '';
-        }
-
-    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.3.4/axios.min.js"></script>
+    <script src="main.js"></script>
 </body>
 </html>
