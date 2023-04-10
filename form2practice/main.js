@@ -1,19 +1,18 @@
-var crud = 'https://crudcrud.com/api/40fad303c79d4e6f92aac6e36b219005' + '/appointmentData/';
+var crud = 'https://crudcrud.com/api/cd10f6036f8a42378485bd380f258be6' + '/appointmentData/';
 
-window.onload = () => {
-    axios.get(crud)
-    .then( (customer) => {
+window.onload = async () => {
+    try{
+        const customer = await axios.get(crud);
         const appointdetail = customer.data;
         for(const appointment of appointdetail) {
             setValueInUi(appointment, appointment._id);
         }
-    })
-    .catch( (err) => {
-        console.error(err);
-    });
+    } catch(err) {
+        console.log(err);
+    };
 }
 
-function addToLocalStorage(event) {
+async function addToLocalStorage(event) {
     event.preventDefault();
     const mail = event.target.email.value;
     const name = event.target.name.value;
@@ -24,38 +23,32 @@ function addToLocalStorage(event) {
         mail,
         phone
     }
-    axios.post(crud, obj)
-    .then( (customer) => {
+    const customer = await axios.post(crud, obj);
+    try {
         console.log(customer);
         const appointment = customer.data;
         setValueInUi(obj, appointment._id);
-    })
-    .catch( (err) => {
-        console.error(err);
-    });
+    }catch (err) {
+        console.log(err);
+    }
     // localStorage.setItem(obj.mail, JSON.stringify(obj));
 
 }
-function setValueInUi(obj, id) {
+async function setValueInUi(obj, id) {
     var parentElement = document.getElementById('user');
     var btn = document.createElement('input');
     btn.className = 'btn delete';
     btn.type = 'button';
     btn.value = 'Delete';
-    var edit = document.createElement('input');
-    edit.className = 'btn edit';
-    edit.type = 'button';
-    edit.value = 'edit';
-    btn.onclick = () => {
-        axios
-        .delete(crud + id)
-        .then( (res) => {
+    
+    btn.onclick = async () => {
+        const res = await axios.delete(crud + id);
+        try {
             console.log(res);
             parentElement.removeChild(childElement);
-        })
-        .catch( (err) => {
+        }catch (err) {
             console.error(err);
-        });
+        }
         
     };
 
@@ -64,19 +57,21 @@ function setValueInUi(obj, id) {
     let name = document.getElementById('name');
     let phone = document.getElementById('phone');
     
-    edit.onclick = () => {
+    var edit = document.createElement('input');
+    edit.className = 'btn edit';
+    edit.type = 'button';
+    edit.value = 'edit';
+    edit.onclick = async () => {
         email.value = obj.mail;
         name.value = obj.name;
         phone.value = obj.phone;
-        axios
-        .delete(crud + id)
-        .then( (res) => {
+        const res = await axios.delete(crud + id);
+        try{
             console.log(res);
             parentElement.removeChild(childElement);
-        })
-        .catch( (err) => {
-            console.error(err);
-        });
+        }catch(err) {
+            console.log(err);
+        }
     }
     var childElement = document.createElement('li');
     childElement.textContent = 'Name: '+obj.name+' Email: '+obj.mail+' PhoneNumber: '+obj.phone;

@@ -60,7 +60,6 @@ function removeRecord(e) {
     if (e.target.classList.contains('delete')) {
         var li = e.target.parentElement;
         userList.removeChild(li);
-
     }
 }
 console.log(user.name);
