@@ -1,0 +1,23 @@
+input {
+    width: 20%;
+    margin-right: 5px;
+    border-radius: 5px;
+    height: 25px;
+}
+.col {
+    flex-direction: column;
+    display: contents;
+}
+label {
+    font-size: 25px;
+}
+button {
+    font-size: 23px;
+    border-radius: 4px;
+}
+.delete {
+    width: 60px;
+}
+.edit {
+    width: 60px;
+}

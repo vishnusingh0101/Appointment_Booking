@@ -5,31 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>formPractice</title>
-    <style>
-        input {
-            width: 20%;
-            margin-right: 5px;
-            border-radius: 5px;
-            height: 25px;
-        }
-        .col {
-            flex-direction: column;
-            display: contents;
-        }
-        label {
-            font-size: 25px;
-        }
-        button {
-            font-size: 23px;
-            border-radius: 4px;
-        }
-        .delete {
-            width: 60px;
-        }
-        .edit {
-            width: 60px;
-        }
-    </style>
+    <link rel="stylesheet" href="../public/css/main.css">
 </head>
 <body>
     <form onsubmit="addToLocalStorage(event)">
@@ -55,6 +31,6 @@
         <ul id="user"></ul>
     </form>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.3.4/axios.min.js"></script>
-    <script src="main.js"></script>
+    <script src="../public/js/main.js"></script>
 </body>
 </html>

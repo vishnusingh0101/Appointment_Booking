@@ -1,11 +1,14 @@
-var crud = 'https://crudcrud.com/api/cd10f6036f8a42378485bd380f258be6' + '/appointmentData/';
+// var crud = 'https://crudcrud.com/api/cd10f6036f8a42378485bd380f258be6' + '/appointmentData/';
 
 window.onload = async () => {
     try{
-        const customer = await axios.get(crud);
+        const customer = await axios.get('http://localhost:4000/admin/getAll');
         const appointdetail = customer.data;
+        console.log(customer);
         for(const appointment of appointdetail) {
-            setValueInUi(appointment, appointment._id);
+            console.log(appointment.id);
+            setValueInUi(appointment, appointment.id);
+            
         }
     } catch(err) {
         console.log(err);
@@ -14,20 +17,22 @@ window.onload = async () => {
 
 async function addToLocalStorage(event) {
     event.preventDefault();
-    const mail = event.target.email.value;
+    const email = event.target.email.value;
     const name = event.target.name.value;
-    const phone = event.target.phone.value;
-
+    const phonenumber = event.target.phone.value;
+   
     let obj = {
         name,
-        mail,
-        phone
+        email,
+        phonenumber
     }
-    const customer = await axios.post(crud, obj);
+    console.log('Its main obj ',obj);
+    const customer = await axios.post('http://localhost:4000/user/add-user/', obj);
+    console.log(customer);
     try {
         console.log(customer);
         const appointment = customer.data;
-        setValueInUi(obj, appointment._id);
+        setValueInUi(obj, appointment.id);
     }catch (err) {
         console.log(err);
     }
@@ -42,7 +47,8 @@ async function setValueInUi(obj, id) {
     btn.value = 'Delete';
     
     btn.onclick = async () => {
-        const res = await axios.delete(crud + id);
+        console.log('delete Btn '+id);
+        const res = await axios.delete('http://localhost:4000/admin/delete/', {params: {id}});
         try {
             console.log(res);
             parentElement.removeChild(childElement);
@@ -51,8 +57,6 @@ async function setValueInUi(obj, id) {
         }
         
     };
-
-    
     let email = document.getElementById('mail');
     let name = document.getElementById('name');
     let phone = document.getElementById('phone');
@@ -62,10 +66,11 @@ async function setValueInUi(obj, id) {
     edit.type = 'button';
     edit.value = 'edit';
     edit.onclick = async () => {
-        email.value = obj.mail;
+        email.value = obj.email;
         name.value = obj.name;
-        phone.value = obj.phone;
-        const res = await axios.delete(crud + id);
+        phone.value = obj.phonenumber;
+        
+        const res = await axios.delete('http://localhost:4000/admin/delete/', {params: {id}});
         try{
             console.log(res);
             parentElement.removeChild(childElement);
@@ -74,7 +79,7 @@ async function setValueInUi(obj, id) {
         }
     }
     var childElement = document.createElement('li');
-    childElement.textContent = 'Name: '+obj.name+' Email: '+obj.mail+' PhoneNumber: '+obj.phone;
+    childElement.textContent = 'Name: '+obj.name+' Email: '+obj.email+' PhoneNumber: '+obj.phonenumber;
     childElement.appendChild(btn);
     childElement.appendChild(edit);
     parentElement.appendChild(childElement);
